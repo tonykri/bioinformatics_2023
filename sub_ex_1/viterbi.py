@@ -15,8 +15,18 @@ def get_scores(seq):
                     max_prev_prob = score_grid[row, col]
                     prev_state = state
             continue
+
+        temp_max_prev_prob = float('-inf')
+        temp_prev_state = None
+
         for row, state in enumerate(p_states):
             score_grid[row, col] = max_prev_prob + math.log(p_states[state][prev_state]) + math.log(p_symbol[state][symbol])
+            if score_grid[row, col] > temp_max_prev_prob:
+                    temp_max_prev_prob = score_grid[row, col]
+                    temp_prev_state = state
+
+        max_prev_prob = temp_max_prev_prob
+        prev_state = temp_prev_state
 
     return score_grid
 
@@ -25,13 +35,15 @@ def get_path(score_grid, seq):
 
     for col in reversed(range(len(seq))):
         symbol = seq[col]
-        max = -1
-        s = 0
+        max = float('-inf')
+        selected_state = None
+
         for row, state in enumerate(p_states):
             if score_grid[row, col] > max:
                 max = score_grid[row, col]
-                s = state
-        path.append((s, symbol))
+                selected_state = state
+
+        path.append(selected_state)
 
     path.reverse()
     return path

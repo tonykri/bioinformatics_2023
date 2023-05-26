@@ -7,5 +7,5 @@ path = get_path(score_grid, seq)
 print('Score matrix:')
 print(score_grid)
 
-print('Most likely path:')
+print('\nMost likely path for sequence ', seq, ' is:')
 print(path)
