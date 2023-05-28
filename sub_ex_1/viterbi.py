@@ -15,7 +15,6 @@ def get_scores(seq):
             score_grid[row, col] = math.log2(p_symbol[state][symbol]) + \
                   max(math.log2(p_states['a'][state]) + score_grid[0, col-1], math.log2(p_states['b'][state]) + score_grid[1, col-1])
 
-
     return score_grid
 
 def get_path(score_grid, seq):
